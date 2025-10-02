@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-js-starter
+  labels:
+    app: node-js
+    application: node-js-starter
+  annotations:
+    application-name: "node-js-starter"      
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-js-starter
+  template:
+    metadata:
+      labels:
+        app: node-js-starter
+        application: node-js-starter
+      annotations:
+        application-name: "node-js-starter"
+    spec:
+      containers:
+      - name: node-js-starter
+        image: renatobrf/node-js-starter
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: persistent-storage
+            mountPath: /usr/share/node-js-starter
+      volumes:
+      - name: persistent-storage
+        persistentVolumeClaim:
+          claimName: my-pvc
