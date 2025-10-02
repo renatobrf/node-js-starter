@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm install express ejs body-parser
 
 # Copy the rest of the application code
 COPY . .
