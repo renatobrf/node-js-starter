@@ -3,6 +3,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const moment = require('moment');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,4 +23,26 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
+});
+
+const fs = require('fs');
+
+// Verifique se o arquivo de log existe, caso contrário, crie-o
+if (!fs.existsSync('log.txt')) {
+  fs.writeFileSync('log.txt', '');
+}
+
+// Adicione o conteúdo do formulário ao arquivo de log
+app.post('/submit-inscription', (req, res) => {
+  const { nome, email, profissao, areaInteresse } = req.body;  
+  const logEntry = `${nome};${email};${profissao};${areaInteresse};${moment().format('YYYY-MM-DD HH:mm:ss')};\n`;
+
+  fs.appendFile('log.txt', logEntry, (err) => {
+    if (err) {
+      console.error('Erro ao escrever no arquivo de log:', err);
+      res.status(500).send('Erro ao processar sua inscrição.');
+    } else {
+      res.send('Inscrição recebida com sucesso!');
+    }
+  });
 });

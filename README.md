@@ -1,6 +1,6 @@
 # req.
 - npm init -y
-- npm install express ejs body-parser
+- npm install express ejs body-parser fs moment
 
 # run
 - node app.js

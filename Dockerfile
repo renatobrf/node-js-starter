@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install express ejs body-parser
+RUN npm install express ejs body-parser fs moment
 
 # Copy the rest of the application code
 COPY . .

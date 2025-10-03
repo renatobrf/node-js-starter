@@ -1,41 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random Number Generator</title>
+  <title>Inscrição - Autoconhecimento Tecnológico</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
-      background-color: #f0f0f0;
-    }
-
-    .container {
-      text-align: center;
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
     }
 
     h1 {
-      margin-bottom: 20px;
+      color: #333;
+      margin-bottom: 2rem;
     }
 
-    p {
-      font-size: 24px;
-      font-weight: bold;
+    form {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #555;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Random Number Generator</h1>
-    <p>Random Number: <%= number %></p>
-  </div>
+  <header>
+    <h1>Inscreva-se para Autoconhecimento Tecnológico</h1>
+    <p>Desenvolve suas habilidades e conhecimentos em tecnologia.</p>
+  </header>
+
+  <main>
+    <form action="/submit-inscription" method="POST">
+      <div>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+      </div>
+      <div>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div>
+        <label for="profissao">Profissão:</label>
+        <input type="text" id="profissao" name="profissao" required>
+      </div>
+      <div>
+        <label for="area-interesse">Área de Interesse:</label>
+        <select id="areaInteresse" name="areaInteresse" required>
+          <option value="nao-informado">Selecione</option>
+          <option value="negocios">Negócios</option>
+          <option value="tecnologia">Tecnologia</option>
+          <option value="varejo-internacional">Varejo Internacional</option>
+        </select>
+      </div>
+      <button type="submit">Inscrever-se</button>
+    </form>
+  </main>
 </body>
 </html>
