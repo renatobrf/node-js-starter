@@ -1,0 +1,31 @@
+{
+  "name": "obsconsulta",
+  "version": "1.0.0",
+  "description": "Website de consultoria em monitoramento e observabilidade",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "monitoramento",
+    "observabilidade",
+    "prometheus",
+    "grafana",
+    "consultoria",
+    "devops"
+  ],
+  "author": "ObsConsulta",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "moment": "^2.29.4"
+  },
+  "devDependencies": {}
+}

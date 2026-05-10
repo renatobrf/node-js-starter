@@ -1,90 +1,804 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inscrição - Autoconhecimento Tecnológico</title>
+  <title>ObsConsulta - Consultoria em Monitoramento e Observabilidade</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #1a365d;
+      --primary-light: #2d5a8c;
+      --accent: #00d4ff;
+      --accent-hover: #00b8d4;
+      --text-dark: #1a1a1a;
+      --text-light: #666;
+      --bg-light: #f8f9fa;
+      --border: #e0e0e0;
+      --success: #10b981;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-dark);
+      line-height: 1.6;
+      background: #fff;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      padding: 2rem;
     }
 
-    h1 {
-      color: #333;
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 2rem;
+      transition: color 0.3s;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 6rem 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
       margin-bottom: 2rem;
+      opacity: 0.95;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    form {
-      background-color: #fff;
-      padding: 2rem;
+    .cta-button {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--primary);
+      padding: 1rem 2.5rem;
       border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .cta-button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+    }
+
+    .cta-secondary {
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      margin-left: 1rem;
+    }
+
+    .cta-secondary:hover {
+      background: rgba(0, 212, 255, 0.1);
+    }
+
+    /* Services Section */
+    .services {
+      padding: 5rem 0;
+      background: var(--bg-light);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 3rem;
+      color: var(--primary);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+      border-left: 4px solid var(--accent);
+    }
+
+    .service-card:hover {
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      transform: translateY(-5px);
+    }
+
+    .service-card h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .service-card p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .service-card ul {
+      list-style: none;
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .service-card li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .service-card li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* Benefits Section */
+    .benefits {
+      padding: 5rem 0;
+    }
+
+    .benefits-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .benefits-text h2 {
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .benefit-item {
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .benefit-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .benefit-text h4 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .benefit-text p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .benefits-image {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: 8px;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      padding: 5rem 0;
+      background: var(--bg-light);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .stars {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .testimonial-text {
+      color: var(--text-light);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-author {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .testimonial-role {
+      color: var(--text-light);
+      font-size: 0.85rem;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .contact-info h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-info p {
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    .contact-methods {
+      margin-top: 2rem;
+    }
+
+    .contact-method {
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-method strong {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
     }
 
     label {
       display: block;
       margin-bottom: 0.5rem;
-      color: #555;
+      font-weight: 600;
+      font-size: 0.95rem;
     }
 
-    input, select {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
       width: 100%;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
-
-    button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 1rem 2rem;
+      padding: 0.75rem;
       border: none;
-      border-radius: 3px;
-      cursor: pointer;
+      border-radius: 5px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: box-shadow 0.3s;
     }
 
-    button:hover {
-      background-color: #45a049;
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .required {
+      color: var(--accent);
+    }
+
+    .form-response {
+      padding: 1rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .form-response.success {
+      background: var(--success);
+      color: white;
+      display: block;
+    }
+
+    .form-response.error {
+      background: #ef4444;
+      color: white;
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      background: #0f1f2e;
+      color: white;
+      padding: 3rem 0 1rem;
+      text-align: center;
+    }
+
+    .footer-content {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-content p {
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+
+    footer small {
+      opacity: 0.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav a {
+        margin-left: 0;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .cta-secondary {
+        display: block;
+        margin: 1rem auto 0;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .benefits-content,
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <h1>Inscreva-se para Autoconhecimento Tecnológico</h1>
-    <p>Desenvolve suas habilidades e conhecimentos em tecnologia.</p>
+    <div class="header-container">
+      <div class="logo">Obs<span>Consulta</span></div>
+      <nav>
+        <a href="#servicos">Serviços</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <form action="/submit-inscription" method="POST">
-      <div>
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Visibilidade Total da Sua Infraestrutura</h1>
+      <p>Consultoria especializada em monitoramento e observabilidade para sua aplicação. Detecte problemas antes que seus usuários.</p>
+      <a href="#contato" class="cta-button">Agendar Demonstração</a>
+      <a href="#servicos" class="cta-button cta-secondary">Conhecer Serviços</a>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="servicos">
+    <div class="container">
+      <h2 class="section-title">Nossos Serviços</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>📊 Implementação de Monitoramento</h3>
+          <p>Configuração completa de ferramentas de monitoramento (Prometheus, Grafana, ELK Stack).</p>
+          <ul>
+            <li>Setup de métricas customizadas</li>
+            <li>Dashboards profissionais</li>
+            <li>Alertas inteligentes</li>
+            <li>Integração com suas aplicações</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <h3>🔍 Observabilidade em Produção</h3>
+          <p>Estratégia completa de observabilidade: logs, traces e métricas correlacionadas.</p>
+          <ul>
+            <li>Análise de performance</li>
+            <li>Rastreamento distribuído</li>
+            <li>Correlação de eventos</li>
+            <li>Troubleshooting avançado</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <h3>🎓 Treinamento e Consultoria</h3>
+          <p>Capacitação de equipes em boas práticas de observabilidade e monitoramento.</p>
+          <ul>
+            <li>Workshop presencial/online</li>
+            <li>Documentação customizada</li>
+            <li>Mentoria contínua</li>
+            <li>Suporte especializado</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <h3>⚡ Otimização de Performance</h3>
+          <p>Identificação e correção de gargalos usando dados observáveis.</p>
+          <ul>
+            <li>Análise de latência</li>
+            <li>Otimização de queries</li>
+            <li>Redução de custos</li>
+            <li>Relatório executivo</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <h3>🛡️ Segurança e Compliance</h3>
+          <p>Monitoramento de segurança e auditoria de conformidade regulatória.</p>
+          <ul>
+            <li>Detecção de anomalias</li>
+            <li>Auditoria de acessos</li>
+            <li>Compliance reporting</li>
+            <li>Incident response</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <h3>🔧 Suporte Contínuo</h3>
+          <p>Manutenção e evolução contínua da sua estratégia de observabilidade.</p>
+          <ul>
+            <li>SLA garantido</li>
+            <li>Atualizações de ferramentas</li>
+            <li>Otimizações contínuas</li>
+            <li>Análises periódicas</li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="benefits" id="beneficios">
+    <div class="container">
+      <h2 class="section-title">Por Que Escolher a ObsConsulta?</h2>
+      <div class="benefits-content">
+        <div class="benefits-text">
+          <div class="benefit-item">
+            <div class="benefit-icon">1</div>
+            <div class="benefit-text">
+              <h4>Experiência Comprovada</h4>
+              <p>Mais de 10 anos em observabilidade com tecnologias modernas.</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">2</div>
+            <div class="benefit-text">
+              <h4>Metodologia Ágil</h4>
+              <p>Implementação rápida sem interrupção de seus serviços.</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">3</div>
+            <div class="benefit-text">
+              <h4>ROI Mensurável</h4>
+              <p>Redução de downtime e custos operacionais garantidos.</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">4</div>
+            <div class="benefit-text">
+              <h4>Suporte 24/7</h4>
+              <p>Equipe sempre disponível para sua tranquilidade.</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">5</div>
+            <div class="benefit-text">
+              <h4>Escalável</h4>
+              <p>Solução que cresce com seu negócio e infraestrutura.</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">6</div>
+            <div class="benefit-text">
+              <h4>Ferramentas Modernas</h4>
+              <p>Stack atualizado: Prometheus, Grafana, Loki, Jaeger, e mais.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="benefits-image">
+          📈 Uptime 99.9%<br><br>
+          ⚡ Detecção em segundos<br><br>
+          💰 Economia de recursos<br><br>
+          😊 Satisfação garantida
+        </div>
       </div>
-      <div>
-        <label for="profissao">Profissão:</label>
-        <input type="text" id="profissao" name="profissao" required>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials" id="depoimentos">
+    <div class="container">
+      <h2 class="section-title">O que Nossos Clientes Dizem</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"A ObsConsulta transformou completamente nossa visibilidade operacional. Conseguimos reduzir o MTTR em 70%!"</p>
+          <p class="testimonial-author">Carlos Silva</p>
+          <p class="testimonial-role">DevOps Lead, TechCorp</p>
+        </div>
+
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Equipe super profissional e responsiva. A implementação foi rápida e sem qualquer impacto em produção."</p>
+          <p class="testimonial-author">Marina Costa</p>
+          <p class="testimonial-role">CTO, DataVision</p>
+        </div>
+
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"O treinamento fornecido capacitou nossa equipe completamente. Agora somos autossuficientes no monitoramento."</p>
+          <p class="testimonial-author">João Santos</p>
+          <p class="testimonial-role">Arquiteto de Sistemas, CloudNine</p>
+        </div>
       </div>
-      <div>
-        <label for="area-interesse">Área de Interesse:</label>
-        <select id="areaInteresse" name="areaInteresse" required>
-          <option value="nao-informado">Selecione</option>
-          <option value="negocios">Negócios</option>
-          <option value="tecnologia">Tecnologia</option>
-          <option value="varejo-internacional">Varejo Internacional</option>
-        </select>
+    </div>
+  </section>
+
+  <!-- Contact/Registration Section -->
+  <section class="contact" id="contato">
+    <div class="container">
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <h2>Vamos Conversar?</h2>
+          <p>Quer saber como podemos transformar a observabilidade da sua aplicação? Preencha o formulário e nossa equipe entrará em contato em até 24 horas.</p>
+          
+          <div class="contact-methods">
+            <div class="contact-method">
+              <strong>📧 Email</strong>
+              renatobarufi@gmail.com
+            </div>
+            <div class="contact-method">
+              <strong>📞 Telefone</strong>
+              +55 (11) 99327-7375
+            </div>
+            <div class="contact-method">
+              <strong>⏰ Disponibilidade</strong>
+              Seg-Sex, 9h às 18h (Brasília)
+            </div>
+          </div>
+        </div>
+
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="nome">Nome Completo <span class="required">*</span></label>
+            <input type="text" id="nome" name="nome" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="empresa">Empresa <span class="required">*</span></label>
+            <input type="text" id="empresa" name="empresa" required>
+          </div>
+
+          <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone">
+          </div>
+
+          <div class="form-group">
+            <label for="servico">Serviço de Interesse <span class="required">*</span></label>
+            <select id="servico" name="servico" required>
+              <option value="">Selecione um serviço</option>
+              <option value="monitoramento">Implementação de Monitoramento</option>
+              <option value="observabilidade">Observabilidade em Produção</option>
+              <option value="treinamento">Treinamento e Consultoria</option>
+              <option value="performance">Otimização de Performance</option>
+              <option value="seguranca">Segurança e Compliance</option>
+              <option value="suporte">Suporte Contínuo</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="descricao">Descreva Sua Necessidade</label>
+            <textarea id="descricao" name="descricao" placeholder="Nos conte um pouco sobre sua aplicação e desafios..."></textarea>
+          </div>
+
+          <button type="submit" class="cta-button" style="width: 100%; margin-top: 1rem;">Enviar Cadastro</button>
+          <div id="formResponse" class="form-response"></div>
+        </form>
       </div>
-      <button type="submit">Inscrever-se</button>
-    </form>
-  </main>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <h3>ObsConsulta</h3>
+        <p>Consultoria especializada em monitoramento e observabilidade</p>
+        <p>Transformando visibilidade em negócio</p>
+      </div>
+      <small>&copy; 2026 ObsConsulta. Todos os direitos reservados.</small>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const responseDiv = document.getElementById('formResponse');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = {
+        nome: document.getElementById('nome').value,
+        email: document.getElementById('email').value,
+        empresa: document.getElementById('empresa').value,
+        telefone: document.getElementById('telefone').value,
+        servico: document.getElementById('servico').value,
+        descricao: document.getElementById('descricao').value
+      };
+
+      try {
+        const response = await fetch('/api/leads', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          responseDiv.textContent = '✓ ' + data.message;
+          responseDiv.classList.remove('error');
+          responseDiv.classList.add('success');
+          form.reset();
+          
+          // Hide message after 5 seconds
+          setTimeout(() => {
+            responseDiv.classList.remove('success');
+          }, 5000);
+        } else {
+          responseDiv.textContent = '✗ ' + data.error;
+          responseDiv.classList.remove('success');
+          responseDiv.classList.add('error');
+        }
+      } catch (error) {
+        responseDiv.textContent = '✗ Erro ao enviar. Tente novamente.';
+        responseDiv.classList.remove('success');
+        responseDiv.classList.add('error');
+        console.error(error);
+      }
+    });
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
