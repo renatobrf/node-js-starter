@@ -3,3 +3,4 @@
 - Observability for application level as well for multi cloud infrastrucutre.
 - Main pillars are metrics, traces and logs.
 - Include Renato Barufi as author and renatobarufi@gmail.com as the main channel contact.
+- Include this +55 (11) 99327-7375 contact.
