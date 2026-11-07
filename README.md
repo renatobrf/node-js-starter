@@ -1,6 +1,12 @@
 # ObsConsulta - Website de Consultoria em Observabilidade
 
-Website profissional para consultoria em monitoramento, observabilidade e performance de aplicações.
+Website profissional para consultoria em observabilidade unificada de aplicações e plataformas, com uso de ferramentas open-source.
+
+## Posicionamento do serviço
+
+A consultoria atua no processo de observabilidade: diagnóstico, arquitetura, instrumentação, correlação da telemetria e evolução operacional. Métricas, logs, traces, eventos e outros dados são relacionados por identidade e contexto para apoiar a investigação de sistemas.
+
+O serviço prioriza ferramentas open-source, como OpenTelemetry, Prometheus, Grafana OSS, Loki e Tempo. Não inclui venda ou contratação de ferramentas, pagamento de licenças, infraestrutura ou serviços gerenciados; esses itens, quando necessários, são contratados diretamente pelo cliente. Soluções open-source podem gerar custos de infraestrutura e operação.
 
 ## 🎯 Funcionalidades
 
@@ -163,10 +169,7 @@ A aplicação inclui:
 - Health check em `/health`
 - Armazenamento estruturado em JSON
 
-Para monitoramento em produção, considere adicionar:
-- Integração com Prometheus
-- Logs centralizados (ELK, Loki)
-- APM (Application Performance Monitoring)
+Para instrumentação e observabilidade da aplicação em produção, considere ferramentas open-source como OpenTelemetry, Prometheus, Grafana OSS, Loki e Tempo, conforme as necessidades do ambiente.
 
 ## 🛡️ Segurança
 

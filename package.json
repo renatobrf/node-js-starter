@@ -1,7 +1,7 @@
 {
   "name": "obsconsulta",
   "version": "1.0.0",
-  "description": "Website de consultoria em monitoramento e observabilidade",
+  "description": "Website de consultoria em observabilidade unificada com ferramentas open-source",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",

@@ -131,9 +131,8 @@ Seu website está completo com funcionalidades essenciais:
 - [ ] CI/CD pipeline (GitHub Actions)
 - [ ] Deploy automático
 - [ ] Blue-green deployment
-- [ ] Monitoring com Prometheus
-- [ ] Logs centralizados (ELK)
-- [ ] APM (New Relic / DataDog)
+- [ ] Telemetria com OpenTelemetry e Prometheus
+- [ ] Correlação de logs, traces e métricas com Grafana OSS, Loki e Tempo
 
 ### Performance
 - [ ] Lazy loading de imagens
@@ -244,7 +243,7 @@ Seu website está completo com funcionalidades essenciais:
 - [ ] Vercel (deployment)
 - [ ] AWS S3 (storage)
 - [ ] CloudFlare (CDN)
-- [ ] Datadog (APM)
+- [ ] OpenTelemetry, Prometheus, Grafana OSS, Loki e Tempo (observabilidade)
 
 ---
 
@@ -278,7 +277,7 @@ Seu website está completo com funcionalidades essenciais:
 | Database | $15-100 | PostgreSQL managed |
 | Email | $20-100 | SendGrid, Mailchimp |
 | CDN | $5-50 | CloudFlare, AWS CloudFront |
-| Monitoramento | $50-200 | Datadog, New Relic |
+| Observabilidade | Variável | Ferramentas open-source; estimar infraestrutura e operação, não licenças |
 | Analytics | $0-50 | Google Analytics, Hotjar |
 | **Total** | **$100-550** | Baseado em escala |
 

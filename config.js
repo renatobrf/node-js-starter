@@ -7,7 +7,7 @@ module.exports = {
   // Dados da empresa
   company: {
     name: 'ObsConsulta',
-    tagline: 'Consultoria em Monitoramento e Observabilidade',
+    tagline: 'Observabilidade Unificada com Ferramentas Open-Source',
     description: 'Transformando visibilidade em negócio',
     url: process.env.SITE_URL || 'http://localhost:3000'
   },
@@ -60,13 +60,13 @@ module.exports = {
       id: 'monitoramento',
       title: 'Implementação de Monitoramento',
       icon: '📊',
-      description: 'Configuração completa de ferramentas de monitoramento.'
+      description: 'Implementação de observabilidade unificada com ferramentas open-source.'
     },
     {
       id: 'observabilidade',
       title: 'Observabilidade em Produção',
       icon: '🔍',
-      description: 'Estratégia completa de observabilidade.'
+      description: 'Estratégia para correlacionar telemetria com contexto compartilhado.'
     },
     {
       id: 'treinamento',

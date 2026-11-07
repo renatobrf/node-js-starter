@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ObsConsulta | Architecture & Observability</title>
+  <title>ObsConsulta | Observabilidade Unificada</title>
   <style>
     :root {
       --bg: #07111d;
@@ -173,12 +173,12 @@
     .section-heading h2 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); margin-bottom: 0.65rem; }
     .section-heading p { color: var(--text-muted); }
 
-    .pillars-grid, .services-grid, .testimonial-grid {
+    .unified-grid, .services-grid, .testimonial-grid {
       display: grid;
       gap: 1.25rem;
     }
 
-    .pillars-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .unified-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .testimonial-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
@@ -192,6 +192,16 @@
     .card h3 { margin: 0.4rem 0 0.6rem; font-size: 1.08rem; color: white; }
     .card p, .card li { color: var(--text-muted); font-size: 0.95rem; }
     .card ul { margin-top: 0.7rem; padding-left: 1rem; }
+
+    .scope-note {
+      margin-top: 1.25rem;
+      padding: 1.1rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      color: var(--text-muted);
+    }
+    .scope-note strong { color: white; }
 
     .stats {
       background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
@@ -292,7 +302,7 @@
 
     @media (max-width: 900px) {
       .hero-grid, .approach-grid, .contact-grid { grid-template-columns: 1fr; }
-      .pillars-grid, .services-grid, .testimonial-grid, .stats-grid { grid-template-columns: 1fr 1fr; }
+      .unified-grid, .services-grid, .testimonial-grid, .stats-grid { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 640px) {
@@ -300,7 +310,7 @@
       .nav-links { flex-wrap: wrap; justify-content: center; }
       .hero { padding-top: 3.5rem; }
       .hero-actions { flex-direction: column; }
-      .pillars-grid, .services-grid, .testimonial-grid, .stats-grid { grid-template-columns: 1fr; }
+      .unified-grid, .services-grid, .testimonial-grid, .stats-grid { grid-template-columns: 1fr; }
       .contact-card { padding: 1.2rem; }
       .footer-content { flex-direction: column; align-items: flex-start; }
     }
@@ -312,7 +322,7 @@
       <a class="brand" href="#top">Obs<span>Consulta</span></a>
       <nav class="nav-links">
         <a href="#servicos">Serviços</a>
-        <a href="#pillars">Pilares</a>
+        <a href="#observabilidade">Observabilidade unificada</a>
         <a href="#beneficios">Abordagem</a>
         <a href="#contato">Contato</a>
       </nav>
@@ -324,39 +334,39 @@
       <div>
         <div class="eyebrow">Solution Architect • Observability • Multi-cloud</div>
         <h1>Transforme observabilidade em uma vantagem estratégica.</h1>
-        <p>Eu ajudo empresas a construir arquiteturas resilientes e visibilidade operacional para aplicações distribuídas, ambientes híbridos e infraestruturas multi-cloud.</p>
+        <p>Ajudo empresas a entender o comportamento de aplicações distribuídas conectando telemetria, contexto e mudanças em uma visão operacional unificada.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contato">Agendar conversa</a>
           <a class="btn btn-secondary" href="#servicos">Ver serviços</a>
         </div>
         <ul class="hero-list">
-          <li>Application & infrastructure</li>
-          <li>Metrics • Traces • Logs</li>
-          <li>Cloud-native architecture</li>
+          <li>Aplicações e infraestrutura</li>
+          <li>Métricas, logs, traces e eventos correlacionados</li>
+          <li>Ferramentas open-source</li>
         </ul>
       </div>
 
       <div class="hero-card">
-        <h3>Como eu ajudo</h3>
+        <h3>Observabilidade unificada</h3>
         <div class="stack-item">
-          <div class="stack-icon">M</div>
+          <div class="stack-icon">C</div>
           <div>
-            <strong>Métricas</strong>
-            <span>Estratégia de indicadores, SLOs e alertas orientados a negócio.</span>
+            <strong>Contexto compartilhado</strong>
+            <span>Identidade de serviços, ambientes e versões consistente em toda a telemetria.</span>
           </div>
         </div>
         <div class="stack-item">
-          <div class="stack-icon">T</div>
+          <div class="stack-icon">R</div>
           <div>
-            <strong>Traces</strong>
-            <span>Rastreamento distribuído para reduzir MTTR e entender gargalos.</span>
+            <strong>Correlação ponta a ponta</strong>
+            <span>Relação entre métricas, logs, traces, eventos e mudanças relevantes.</span>
           </div>
         </div>
         <div class="stack-item">
-          <div class="stack-icon">L</div>
+          <div class="stack-icon">I</div>
           <div>
-            <strong>Logs</strong>
-            <span>Centralização e correlação para investigação rápida e confiável.</span>
+            <strong>Investigação com contexto</strong>
+            <span>Evidências conectadas para entender impacto e orientar a resposta.</span>
           </div>
         </div>
       </div>
@@ -374,8 +384,8 @@
         <div class="stat-label">para detectar incidentes</div>
       </div>
       <div class="stat-box">
-        <div class="stat-value">3 pilares</div>
-        <div class="stat-label">metrics, traces e logs</div>
+        <div class="stat-value">Visão unificada</div>
+        <div class="stat-label">sinais relacionados por contexto</div>
       </div>
       <div class="stat-box">
         <div class="stat-value">Multi-cloud</div>
@@ -384,27 +394,28 @@
     </div>
   </section>
 
-  <section id="pillars">
+  <section id="observabilidade">
     <div class="container">
       <div class="section-heading">
-        <div class="eyebrow">Pilares de observabilidade</div>
-        <h2>Uma base sólida para operar com confiança.</h2>
-        <p>Construo soluções que conectam dados técnicos a decisões de negócio, com foco em resiliência, performance e tempo de resposta.</p>
+        <div class="eyebrow">Observabilidade unificada</div>
+        <h2>Conecte evidências para entender o comportamento do sistema.</h2>
+        <p>Padronizo identidade, tempo e contexto para relacionar métricas, logs, traces, eventos e outros dados de telemetria às entidades e mudanças do ambiente.</p>
       </div>
-      <div class="pillars-grid">
+      <div class="unified-grid">
         <article class="card">
-          <h3>Métricas</h3>
-          <p>Definição de SLI/SLO, dashboards, alertas e indicadores executivos para entender o estado real do ambiente.</p>
+          <h3>Contexto compartilhado</h3>
+          <p>Convenções e atributos consistentes identificam serviços, ambientes, versões e dependências em diferentes fontes de telemetria.</p>
         </article>
         <article class="card">
-          <h3>Traces</h3>
-          <p>Rastreamento ponta a ponta para localizar gargalos em microsserviços, APIs e integrações distribuídas.</p>
+          <h3>Correlação entre evidências</h3>
+          <p>Investigue um alerta, uma requisição ou uma mudança e navegue entre dados relacionados sem reconstruir o contexto manualmente.</p>
         </article>
         <article class="card">
-          <h3>Logs</h3>
-          <p>Centralização, correlação e retenção inteligente para investigação rápida, auditoria e análise de incidentes.</p>
+          <h3>Análise orientada a impacto</h3>
+          <p>Relacione falhas e desempenho às dependências e jornadas afetadas para priorizar decisões e respostas operacionais.</p>
         </article>
       </div>
+      <p class="scope-note">Uma visão unificada não exige guardar todos os dados em um único banco: a arquitetura pode usar ferramentas especializadas, conectadas por identidade, contexto e relações comuns.</p>
     </div>
   </section>
 
@@ -413,25 +424,26 @@
       <div class="section-heading">
         <div class="eyebrow">Serviços</div>
         <h2>Estratégia, implementação e evolução contínua.</h2>
-        <p>Do desenho inicial até a operação diária, eu entrego soluções práticas para equipes de tecnologia e negócios.</p>
+        <p>Do diagnóstico à evolução contínua, estruturamos o processo de observabilidade com ferramentas open-source adequadas ao contexto de cada equipe.</p>
       </div>
       <div class="services-grid">
         <article class="card">
           <h3>Arquitetura de observabilidade</h3>
-          <p>Desenho de referência para aplicações modernas, com foco em performance, escalabilidade e governança.</p>
+          <p>Desenho de referência para aplicações modernas, com foco em contexto compartilhado, correlação, performance e governança.</p>
           <ul>
-            <li>Mapeamento de sinais</li>
-            <li>Estrutura de dados e pipelines</li>
-            <li>Escolha de stack</li>
+            <li>Mapeamento de telemetria e entidades</li>
+            <li>Identidade, contexto e pipelines</li>
+            <li>Seleção de ferramentas open-source</li>
           </ul>
         </article>
         <article class="card">
           <h3>Implementação prática</h3>
-          <p>Configuração de ferramentas e fluxos para monitorar aplicações, infraestruturas e integrações complexas.</p>
+          <p>Instrumentação, coleta e correlação de telemetria para aplicações, infraestruturas e integrações complexas.</p>
           <ul>
-            <li>Prometheus, Grafana e OpenTelemetry</li>
+            <li>OpenTelemetry, Prometheus e Grafana OSS</li>
+            <li>Loki, Tempo e outras opções open-source</li>
             <li>Dashboards e alertas</li>
-            <li>Integrações com cloud providers</li>
+            <li>Integrações com plataformas e serviços</li>
           </ul>
         </article>
         <article class="card">
@@ -444,6 +456,7 @@
           </ul>
         </article>
       </div>
+      <p class="scope-note"><strong>Escopo do serviço:</strong> a consultoria cobre o processo de observabilidade — diagnóstico, desenho, implementação e evolução — e não a venda ou contratação de ferramentas. Priorizamos soluções open-source; licenças comerciais, infraestrutura e serviços gerenciados, quando necessários, são contratados diretamente pelo cliente. Ferramentas open-source também podem exigir recursos de infraestrutura e operação.</p>
     </div>
   </section>
 
@@ -452,7 +465,7 @@
       <div class="section-heading">
         <div class="eyebrow">Abordagem</div>
         <h2>Uma jornada clara para reduzir risco e acelerar a operação.</h2>
-        <p>Minha abordagem combina visão arquitetural, implementação prática e acompanhamento contínuo para que a observabilidade gere valor real.</p>
+        <p>Minha abordagem combina visão arquitetural, implementação prática com ferramentas open-source e acompanhamento contínuo para que a observabilidade gere valor real.</p>
       </div>
       <div class="steps">
         <div class="step">
@@ -466,14 +479,14 @@
           <div class="step-number">2</div>
           <div>
             <strong>Desenho</strong>
-            <p>Defino uma estratégia com métricas, traces, logs e cobertura para aplicações e infraestrutura.</p>
+            <p>Defino como correlacionar métricas, logs, traces, eventos e outros dados de aplicações e infraestrutura com contexto comum.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-number">3</div>
           <div>
             <strong>Execução</strong>
-            <p>Implementei a solução com foco em tempo de valor, qualidade e governança.</p>
+            <p>Implemento a solução com foco em tempo de valor, qualidade e governança.</p>
           </div>
         </div>
       </div>
@@ -562,7 +575,7 @@
     <div class="container footer-content">
       <div>
         <strong>ObsConsulta</strong>
-        <p>Architecture & Observability for distributed systems.</p>
+        <p>Observabilidade unificada com ferramentas open-source para sistemas distribuídos.</p>
       </div>
       <small>© 2026 ObsConsulta. Todos os direitos reservados.</small>
     </div>
