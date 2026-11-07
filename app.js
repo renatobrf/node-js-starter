@@ -40,6 +40,10 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.get('/servicos', (req, res) => {
+  res.render('servicos');
+});
+
 // API to submit lead
 app.post('/api/leads', (req, res) => {
   const { nome, email, empresa, telefone, servico, descricao } = req.body;

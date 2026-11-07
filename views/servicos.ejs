@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Implantação de uma plataforma de observabilidade open-source com OpenTelemetry, Prometheus, Grafana, Loki e Tempo.">
+  <title>Implantação de Observabilidade Open-Source | ObsConsulta</title>
+  <style>
+    :root {
+      --bg: #07111d;
+      --text: #e6f1ff;
+      --muted: #8fa3bd;
+      --primary: #3ec5ff;
+      --primary-strong: #1f8cff;
+      --border: rgba(255, 255, 255, 0.12);
+      --surface: rgba(255, 255, 255, 0.05);
+      --shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(62, 197, 255, 0.15), transparent 28%),
+        linear-gradient(135deg, var(--bg) 0%, #091827 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 17, 29, 0.82);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner, .nav-links, .hero-actions, .footer-content {
+      display: flex;
+      align-items: center;
+    }
+    .header-inner { justify-content: space-between; gap: 1rem; padding: 1rem 0; }
+    .brand { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .brand span { color: var(--primary); }
+    .nav-links { flex-wrap: wrap; gap: 1.2rem; color: var(--muted); }
+    .nav-links a:hover, .text-link:hover { color: var(--primary); }
+    .hero { padding: 5.5rem 0 4rem; }
+    .hero-grid, .two-column {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(62, 197, 255, 0.14);
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 { font-size: clamp(2.2rem, 5vw, 3.7rem); line-height: 1.08; margin-bottom: 1rem; }
+    h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.2; margin-bottom: 0.7rem; }
+    h3 { color: white; font-size: 1.1rem; margin-bottom: 0.45rem; }
+    p { color: var(--muted); }
+    .hero-copy { max-width: 680px; font-size: 1.08rem; }
+    .hero-actions { flex-wrap: wrap; gap: 0.8rem; margin-top: 1.6rem; }
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      padding: 0.85rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform 0.2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-strong)); color: white; }
+    .btn-secondary { border: 1px solid var(--border); background: var(--surface); }
+    .panel, .card, .phase, .note {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+    .panel { padding: 1.5rem; }
+    .architecture { display: grid; gap: 0.65rem; margin-top: 1rem; }
+    .architecture div {
+      padding: 0.7rem 0.85rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      text-align: center;
+    }
+    .architecture strong { color: white; }
+    section { padding: 4rem 0; }
+    .section-heading { max-width: 740px; margin-bottom: 1.8rem; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+    .card { padding: 1.25rem; }
+    .card p, .card li { font-size: 0.95rem; }
+    .card ul { margin: 0.7rem 0 0 1.1rem; }
+    .product { color: var(--primary); font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .two-column { align-items: start; }
+    .phases { display: grid; gap: 0.8rem; }
+    .phase { display: flex; gap: 0.85rem; padding: 1rem; }
+    .phase-number {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, var(--primary), #5fd4ff);
+      color: var(--bg);
+      font-weight: 800;
+    }
+    .phase p { font-size: 0.94rem; }
+    .note { padding: 1.25rem; }
+    .note strong { color: white; }
+    .check-list { margin: 0.8rem 0 0 1.1rem; color: var(--muted); }
+    .cta {
+      padding: 2rem;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(62, 197, 255, 0.16), rgba(31, 140, 255, 0.08));
+      border: 1px solid var(--border);
+    }
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); color: var(--muted); }
+    .footer-content { justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .footer-content p { font-size: 0.9rem; }
+    @media (max-width: 850px) {
+      .hero-grid, .two-column { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 600px) {
+      .header-inner { flex-direction: column; }
+      .nav-links { justify-content: center; gap: 0.7rem 1rem; }
+      .hero { padding-top: 3.5rem; }
+      .grid { grid-template-columns: 1fr; }
+      .cta { padding: 1.25rem; }
+      .footer-content { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">Obs<span>Consulta</span></a>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="#plataforma">Plataforma</a>
+        <a href="#implantacao">Implantação</a>
+        <a href="/#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Serviço de implantação</div>
+          <h1>Enxergue o que acontece na sua plataforma.</h1>
+          <p class="hero-copy">Implanto uma base de observabilidade open-source que conecta métricas, logs e traces para ajudar seu time a detectar problemas e investigar suas causas — com uma arquitetura dimensionada para a sua realidade.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/#contato">Conversar sobre meu cenário</a>
+            <a class="btn btn-secondary" href="#plataforma">Conhecer a stack</a>
+          </div>
+        </div>
+        <aside class="panel" aria-label="Visão geral da arquitetura">
+          <h3>Uma visão operacional conectada</h3>
+          <p>Telemetria padronizada, ferramentas especializadas e exploração em um só lugar.</p>
+          <div class="architecture">
+            <div>Aplicações · hosts · serviços</div>
+            <div><strong>OpenTelemetry</strong> · Alloy / Collector</div>
+            <div><strong>Prometheus</strong> · <strong>Loki</strong> · <strong>Tempo</strong></div>
+            <div><strong>Grafana OSS</strong> · dashboards · alertas</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="plataforma">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Stack sugerida</div>
+          <h2>Ferramentas abertas, cada uma no papel certo.</h2>
+          <p>A composição inicial segue a recomendação do projeto: OpenTelemetry como padrão de instrumentação, backends especializados por sinal e Grafana como experiência comum de operação.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <span class="product">Instrumentação</span>
+            <h3>OpenTelemetry</h3>
+            <p>SDKs e auto-instrumentação para produzir métricas, logs e traces com identidade de serviço e contexto consistente.</p>
+          </article>
+          <article class="card">
+            <span class="product">Coleta e processamento</span>
+            <h3>Grafana Alloy ou OTel Collector</h3>
+            <p>Recebe, enriquece, filtra e encaminha telemetria com filas e retentativas limitadas. A escolha depende das integrações e da estratégia de configuração.</p>
+          </article>
+          <article class="card">
+            <span class="product">Métricas</span>
+            <h3>Prometheus e exporters</h3>
+            <p>Métricas de aplicações e infraestrutura, regras de alerta e integrações como Node Exporter, kube-state-metrics e exporters de bancos de dados.</p>
+          </article>
+          <article class="card">
+            <span class="product">Logs</span>
+            <h3>Loki</h3>
+            <p>Armazenamento e consulta de logs estruturados, enviados pelo Alloy ou OTel Collector e correlacionados com traces.</p>
+          </article>
+          <article class="card">
+            <span class="product">Traces</span>
+            <h3>Tempo</h3>
+            <p>Armazenamento de traces distribuídos via OpenTelemetry para investigar latência, erros e dependências entre serviços.</p>
+          </article>
+          <article class="card">
+            <span class="product">Exploração e alertas</span>
+            <h3>Grafana OSS</h3>
+            <p>Dashboards, Explore, correlações entre fontes, alertas e roteamento de notificações para os canais acordados.</p>
+          </article>
+          <article class="card">
+            <span class="product">Disponibilidade</span>
+            <h3>Blackbox Exporter</h3>
+            <p>Probes de disponibilidade HTTP, TCP e DNS para acompanhar endpoints e serviços a partir da rede de monitoramento.</p>
+          </article>
+          <article class="card">
+            <span class="product">Evolução opcional</span>
+            <h3>Pyroscope, Mimir ou Thanos</h3>
+            <p>Profiling e escala de métricas podem entrar depois, quando volume, retenção ou requisitos de disponibilidade justificarem a complexidade.</p>
+          </article>
+          <article class="card">
+            <span class="product">Alternativas por contexto</span>
+            <h3>Jaeger ou OpenSearch</h3>
+            <p>Podem ser avaliados para traces ou logs quando houver experiência existente, necessidade específica ou decisão arquitetural que os favoreça.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="implantacao">
+      <div class="container two-column">
+        <div>
+          <div class="eyebrow">Como trabalhamos</div>
+          <h2>Comece pequeno. Evolua com evidências.</h2>
+          <p>O escopo é definido junto com seu time; cada etapa deixa uma base operável e prepara a seguinte, sem introduzir componentes distribuídos antes de haver necessidade medida.</p>
+        </div>
+        <div class="phases">
+          <article class="phase">
+            <span class="phase-number">1</span>
+            <div><h3>Descoberta e desenho</h3><p>Mapeamento de serviços, ambientes, dependências, responsáveis, requisitos de retenção e políticas de dados.</p></div>
+          </article>
+          <article class="phase">
+            <span class="phase-number">2</span>
+            <div><h3>Fundação de infraestrutura</h3><p>Instalação inicial dos componentes, exporters e probes, com dashboards e alertas prioritários.</p></div>
+          </article>
+          <article class="phase">
+            <span class="phase-number">3</span>
+            <div><h3>Instrumentação de aplicações</h3><p>OpenTelemetry, convenções de identidade, logs estruturados e correlação de traces nos fluxos prioritários.</p></div>
+          </article>
+          <article class="phase">
+            <span class="phase-number">4</span>
+            <div><h3>Validação e transferência</h3><p>Testes de investigação, notificações, proteção de dados, documentação e capacitação do time para operar.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container grid">
+        <article class="note">
+          <h3>O que fica para o seu time</h3>
+          <ul class="check-list">
+            <li>Arquitetura e configuração inicial da plataforma</li>
+            <li>Dashboards, alertas e fluxo básico de investigação</li>
+            <li>Padrões para instrumentação e identidade de serviços</li>
+            <li>Documentação, validação e transferência de conhecimento</li>
+          </ul>
+        </article>
+        <article class="note">
+          <h3>Começo pragmático</h3>
+          <p>O primeiro estágio pode ser um nó dedicado com armazenamento persistente e retenção curta. Alta disponibilidade, armazenamento de objetos e backends distribuídos são avaliados conforme requisitos e medições.</p>
+        </article>
+        <article class="note">
+          <h3>Transparência de custos e limites</h3>
+          <p>Open-source evita a licença dos componentes comunitários, mas infraestrutura, armazenamento, operação, backups, segurança, atualizações e suporte continuam tendo custos. A plataforma não substitui SIEM nem trilha de auditoria imutável.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="container cta">
+        <div class="two-column">
+          <div>
+            <div class="eyebrow">Próximo passo</div>
+            <h2>Vamos definir uma primeira entrega útil?</h2>
+            <p>Conte sobre sua arquitetura, os sinais que já coleta e os problemas que quer investigar melhor. A proposta começa pelo seu contexto, não por uma lista fixa de ferramentas.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/#contato">Solicitar uma conversa</a>
+            <a class="btn btn-secondary" href="/">Voltar à página inicial</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div>
+        <strong>ObsConsulta</strong>
+        <p>Observabilidade unificada com ferramentas open-source para sistemas distribuídos.</p>
+      </div>
+      <small>© 2026 ObsConsulta. Todos os direitos reservados.</small>
+    </div>
+  </footer>
+</body>
+</html>
