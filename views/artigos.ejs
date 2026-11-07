@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Artigos sobre arquitetura, instrumentação e práticas de observabilidade para sistemas distribuídos.">
+  <title>Artigos sobre Observabilidade | ObsConsulta</title>
+  <style>
+    :root {
+      --bg: #07111d;
+      --text: #e6f1ff;
+      --muted: #8fa3bd;
+      --primary: #3ec5ff;
+      --primary-strong: #1f8cff;
+      --border: rgba(255, 255, 255, 0.12);
+      --surface: rgba(255, 255, 255, 0.05);
+      --shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(62, 197, 255, 0.15), transparent 28%),
+        linear-gradient(135deg, var(--bg) 0%, #091827 100%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--primary); }
+    .container { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 17, 29, 0.82);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner, .nav-links, .footer-content { display: flex; align-items: center; }
+    .header-inner { justify-content: space-between; gap: 1rem; padding: 1rem 0; }
+    .brand { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .brand span { color: var(--primary); }
+    .nav-links { flex-wrap: wrap; gap: 1.2rem; color: var(--muted); }
+    main { padding: 5rem 0 6rem; }
+    .eyebrow {
+      display: inline-flex;
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(62, 197, 255, 0.14);
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h1 { font-size: clamp(2.2rem, 5vw, 3.7rem); line-height: 1.08; margin-bottom: 1rem; }
+    .intro { max-width: 760px; color: var(--muted); font-size: 1.08rem; }
+    .topics { display: flex; flex-wrap: wrap; gap: 0.65rem; margin: 1.5rem 0 2.5rem; }
+    .topic {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      padding: 0.4rem 0.75rem;
+      font-size: 0.9rem;
+    }
+    .article-list { display: grid; gap: 1rem; }
+    .article-card {
+      display: block;
+      padding: clamp(1.3rem, 4vw, 2rem);
+      border-radius: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .article-card:hover { transform: translateY(-3px); border-color: rgba(62, 197, 255, 0.55); }
+    .article-meta { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; color: var(--muted); font-size: 0.9rem; }
+    .category { color: var(--primary); font-weight: 700; }
+    .article-card h2 { font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.25; margin: 0.8rem 0; color: var(--text); }
+    .article-card p { color: var(--muted); max-width: 780px; }
+    .read-more { display: inline-block; margin-top: 1.2rem; color: var(--primary); font-weight: 700; }
+    .topics-note {
+      margin-top: 2rem;
+      padding: 1.2rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+    }
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); color: var(--muted); }
+    .footer-content { justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .footer-content p { font-size: 0.9rem; }
+    @media (max-width: 600px) {
+      .header-inner { flex-direction: column; }
+      .nav-links { justify-content: center; gap: 0.7rem 1rem; }
+      main { padding-top: 3.5rem; }
+      .footer-content { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">Obs<span>Consulta</span></a>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/servicos">Serviços</a>
+        <a href="/artigos" aria-current="page">Artigos</a>
+        <a href="/#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="eyebrow">Biblioteca de conhecimento</div>
+      <h1>Artigos sobre observabilidade</h1>
+      <p class="intro">Ideias e práticas para desenhar arquiteturas observáveis, conectar sinais e melhorar a confiabilidade de sistemas. Os temas acompanham os desafios que trabalhamos nos serviços de consultoria.</p>
+
+      <div class="topics" aria-label="Temas dos artigos">
+        <span class="topic">Arquitetura</span>
+        <span class="topic">OpenTelemetry</span>
+        <span class="topic">Métricas, logs e traces</span>
+        <span class="topic">SLOs e confiabilidade</span>
+        <span class="topic">Governança e custos</span>
+      </div>
+
+      <div class="article-list">
+        <% articles.forEach((article) => { %>
+          <a class="article-card" href="/artigos/<%= article.slug %>">
+            <div class="article-meta">
+              <span class="category"><%= article.category %></span>
+              <span>Leitura de <%= article.readingTime %></span>
+            </div>
+            <h2><%= article.title %></h2>
+            <p><%= article.summary %></p>
+            <span class="read-more">Ler artigo →</span>
+          </a>
+        <% }) %>
+      </div>
+
+      <p class="topics-note">A biblioteca reúne conteúdos sobre arquitetura, instrumentação, operação, armazenamento, SLOs, governança e evolução de plataformas de observabilidade.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div>
+        <strong>ObsConsulta</strong>
+        <p>Observabilidade unificada com ferramentas open-source para sistemas distribuídos.</p>
+      </div>
+      <small>© 2026 ObsConsulta. Todos os direitos reservados.</small>
+    </div>
+  </footer>
+</body>
+</html>

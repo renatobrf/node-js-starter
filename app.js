@@ -3,9 +3,28 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 const fs = require('fs');
 const path = require('path');
+const marked = require('marked');
 
 const app = express();
 const port = process.env.PORT || 3000;
+const articles = [
+  {
+    slug: 'modelos-de-arquitetura-tres-pilares-vs-observabilidade-unificada',
+    title: 'Modelos de Arquitetura: 3 Pilares vs Observabilidade Unificada',
+    category: 'Arquitetura',
+    summary: 'Uma análise dos modelos de três pilares e de dados unificados, com recomendações para correlacionar sinais, contexto e decisões operacionais.',
+    readingTime: '18 min',
+    source: path.join(__dirname, 'content/articles/modelos-de-arquitetura-tres-pilares-vs-observabilidade-unificada.md')
+  },
+  {
+    slug: 'indexacao-de-logs-usando-clickhouse',
+    title: 'Indexação de Logs usando ClickHouse',
+    category: 'Logs e armazenamento',
+    summary: 'Uma avaliação do ClickHouse para ingestão, indexação, consulta e retenção de logs em alto volume, com arquitetura de referência e critérios de validação.',
+    readingTime: '25 min',
+    source: path.join(__dirname, 'content/articles/indexacao-de-logs-usando-clickhouse.md')
+  }
+];
 
 // Set view engine to EJS
 app.set('view engine', 'ejs');
@@ -42,6 +61,23 @@ app.get('/', (req, res) => {
 
 app.get('/servicos', (req, res) => {
   res.render('servicos');
+});
+
+app.get('/artigos', (req, res) => {
+  res.render('artigos', { articles });
+});
+
+app.get('/artigos/:slug', (req, res) => {
+  const article = articles.find(({ slug }) => slug === req.params.slug);
+  if (!article) {
+    return res.sendStatus(404);
+  }
+
+  const markdown = fs.readFileSync(article.source, 'utf-8');
+  res.render('artigo', {
+    article,
+    content: marked.parse(markdown)
+  });
 });
 
 // API to submit lead

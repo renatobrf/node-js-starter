@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="<%= article.summary %>">
+  <title><%= article.title %> | ObsConsulta</title>
+  <style>
+    :root {
+      --bg: #07111d;
+      --text: #e6f1ff;
+      --muted: #a4b5c9;
+      --primary: #3ec5ff;
+      --primary-strong: #1f8cff;
+      --border: rgba(255, 255, 255, 0.12);
+      --surface: rgba(255, 255, 255, 0.05);
+      --shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(62, 197, 255, 0.15), transparent 28%),
+        linear-gradient(135deg, var(--bg) 0%, #091827 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--primary); }
+    .container { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 17, 29, 0.82);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner, .nav-links, .footer-content { display: flex; align-items: center; }
+    .header-inner { justify-content: space-between; gap: 1rem; padding: 1rem 0; }
+    .brand { font-size: 1.2rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .brand span { color: var(--primary); }
+    .nav-links { flex-wrap: wrap; gap: 1.2rem; color: var(--muted); }
+    main { padding: 3.5rem 0 6rem; }
+    .breadcrumbs { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.5rem; }
+    .breadcrumbs span { padding: 0 0.4rem; color: var(--primary); }
+    .article-shell {
+      padding: clamp(1.2rem, 5vw, 3.5rem);
+      border-radius: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .article-meta { color: var(--primary); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+    .article-shell h1 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.12; margin: 0.65rem 0 1.5rem; }
+    .article-body { color: var(--muted); overflow-wrap: anywhere; }
+    .article-body h1 { display: none; }
+    .article-body h2, .article-body h3, .article-body h4 { color: var(--text); line-height: 1.25; }
+    .article-body h2 { font-size: clamp(1.55rem, 3vw, 2.1rem); margin: 2.8rem 0 1rem; padding-bottom: 0.55rem; border-bottom: 1px solid var(--border); }
+    .article-body h3 { font-size: 1.3rem; margin: 2rem 0 0.8rem; }
+    .article-body h4 { margin: 1.5rem 0 0.65rem; }
+    .article-body p, .article-body ul, .article-body ol, .article-body table, .article-body pre, .article-body blockquote { margin: 0.9rem 0 1.15rem; }
+    .article-body ul, .article-body ol { padding-left: 1.5rem; }
+    .article-body li { margin: 0.4rem 0; padding-left: 0.2rem; }
+    .article-body strong { color: #fff; }
+    .article-body a { color: var(--primary); text-decoration: underline; text-underline-offset: 0.18em; }
+    .article-body code {
+      padding: 0.12rem 0.35rem;
+      border-radius: 5px;
+      background: rgba(0, 0, 0, 0.3);
+      color: #b7eaff;
+      font-size: 0.92em;
+    }
+    .article-body pre {
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.28);
+      overflow-x: auto;
+    }
+    .article-body pre code { padding: 0; background: transparent; color: #d7e8f7; }
+    .article-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; }
+    .article-body th, .article-body td { padding: 0.7rem 0.8rem; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+    .article-body th { background: rgba(62, 197, 255, 0.1); color: var(--text); }
+    .article-body blockquote { padding: 0.8rem 1rem; border-left: 3px solid var(--primary); background: rgba(62, 197, 255, 0.06); }
+    .article-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+    .back-link { color: var(--primary); font-weight: 700; }
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); color: var(--muted); }
+    .footer-content { justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .footer-content p { font-size: 0.9rem; }
+    @media (max-width: 600px) {
+      .header-inner { flex-direction: column; }
+      .nav-links { justify-content: center; gap: 0.7rem 1rem; }
+      main { padding-top: 2.5rem; }
+      .footer-content { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">Obs<span>Consulta</span></a>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="/">Início</a>
+        <a href="/servicos">Serviços</a>
+        <a href="/artigos">Artigos</a>
+        <a href="/#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="breadcrumbs"><a href="/">Início</a><span>›</span><a href="/artigos">Artigos</a></div>
+    <article class="article-shell">
+      <div class="article-meta"><%= article.category %> · Leitura de <%= article.readingTime %></div>
+      <h1><%= article.title %></h1>
+      <div class="article-body"><%- content %></div>
+      <div class="article-footer">
+        <a class="back-link" href="/artigos">← Voltar para todos os artigos</a>
+        <a class="back-link" href="/#contato">Falar sobre observabilidade →</a>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div>
+        <strong>ObsConsulta</strong>
+        <p>Observabilidade unificada com ferramentas open-source para sistemas distribuídos.</p>
+      </div>
+      <small>© 2026 ObsConsulta. Todos os direitos reservados.</small>
+    </div>
+  </footer>
+</body>
+</html>
